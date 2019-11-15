@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    k8s-app: test
+  name: rtcloadtest-pvc
+  namespace: test
+spec:
+  storageClassName: default-nfs-storage
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

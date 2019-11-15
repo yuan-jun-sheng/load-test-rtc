@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rtc-load-test
+  namespace: test
+  labels:
+    k8s-app: test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      k8s-app: test
+  template:
+    metadata:
+      labels:
+        k8s-app: test
+    spec:
+      containers:
+      - name: rtc-reg-load-test
+        image: dialogicbuzz/rtc-reg-load-test:latest
+        imagePullPolicy: Always #IfNotPresent
+        volumeMounts:
+        - mountPath: /var/lib/reg_load_test/logs
+          name: rtcloadtest-pvc
+        env:
+          - name: SERVER_URL
+            value: wss://10.0.0.70:30089
+      volumes:
+      - name: rtcloadtest-pvc
+        persistentVolumeClaim:
+          claimName: rtcloadtest-pvc
