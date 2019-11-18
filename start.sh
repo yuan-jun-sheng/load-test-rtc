@@ -5,5 +5,8 @@ then
   kubectl create namespace test
 fi
 
-kubectl apply -f pvc.yaml
+if [ -z "$(kubectl get pvc -n test | grep rtcloadtest)" ]
+then
+  kubectl apply -f pvc.yaml
+fi
 kubectl apply -f deployment.yaml
