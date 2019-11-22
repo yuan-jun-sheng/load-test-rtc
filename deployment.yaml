@@ -6,7 +6,7 @@ metadata:
   labels:
     k8s-app: test
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       k8s-app: test
@@ -24,7 +24,13 @@ spec:
           name: rtcloadtest-pvc
         env:
           - name: SERVER_URL
-            value: wss://10.0.0.70:30089
+#            value: wss://10.0.0.62:30089
+#            value: https://10.0.0.82:3082
+            value: https://3.209.4.8/buzz-rtc
+          - name: WS_NUMBER
+            value: "20000"
+          - name: INTERVAL
+            value: "200"
       volumes:
       - name: rtcloadtest-pvc
         persistentVolumeClaim:
